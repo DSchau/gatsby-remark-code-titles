@@ -2,6 +2,8 @@
 
 Adds a code title to code snippets
 
+![Code title example](./example/code-title.png)
+
 ## Install
 
 ```bash
