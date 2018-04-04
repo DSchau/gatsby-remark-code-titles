@@ -1,0 +1,6 @@
+node_modules
+
+/*.js
+!/.babelrc.js
+
+*.log
