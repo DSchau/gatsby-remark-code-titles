@@ -3,9 +3,9 @@ import qs from 'query-string';
 
 module.exports = function gatsbyRemarkCodeTitles({ markdownAST }, { className: customClassName }) {
   visit(markdownAST, 'code', (node, index) => {
-    const [language, query] = node.lang.split(':');
+    const [language, query] = (node.lang || '').split(':');
     const { title } = qs.parse(query);
-    if (!title) {
+    if (!title || !lang) {
       return;
     }
 
