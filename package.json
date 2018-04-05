@@ -1,6 +1,6 @@
 {
   "name": "gatsby-remark-code-titles",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "author": "Dustin Schau <dustinschau@gmail.com> (https://dustinschau.com)",
   "license": "MIT",
