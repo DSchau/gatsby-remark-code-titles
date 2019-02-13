@@ -85,6 +85,8 @@ describe(`adding title`, () => {
 
     expect(original).not.toEqual(updated);
 
-    // no way to assert _what_ is on lang, because the nodes are separate
+    const [_, codeNode] = updated.children;
+
+    expect(codeNode.lang).toBe(`js:copy=true`);
   });
 });
