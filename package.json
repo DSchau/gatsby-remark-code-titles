@@ -3,12 +3,11 @@
   "version": "1.0.1",
   "main": "index.js",
   "author": "Dustin Schau <dustinschau@gmail.com> (https://dustinschau.com)",
-  "license": "MIT",
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-remark-plugin"
+  "contributors": [
+    "Vladimir Skok <skok@vova.io> (https://github.com/iamskok/)"
   ],
+  "license": "MIT",
+  "keywords": ["gatsby", "gatsby-plugin", "gatsby-remark-plugin"],
   "scripts": {
     "precommit": "pretty-quick --staged",
     "build": "babel src --out-dir . --ignore __tests__",

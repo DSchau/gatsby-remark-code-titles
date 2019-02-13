@@ -9,15 +9,18 @@ module.exports = function gatsbyRemarkCodeTitles(
     const [language, ...params] = (node.lang || '').split(':');
     const query = params.join('&');
     const options = qs.parse(query);
-    const title = options.title;
+    const { title, ...rest } = options;
     if (!title || !language) {
       return;
     }
 
-    delete options['title'];
     let newQuery = '';
-    for (let key in options) {
-      newQuery += `:${key}=${options[key]}`;
+    if (Object.keys(rest).length) {
+      newQuery =
+        `:` +
+        Object.keys(rest)
+          .map(key => `${key}=${rest[key]}`)
+          .join('&');
     }
 
     const className = ['gatsby-code-title'].concat(customClassName || []);
