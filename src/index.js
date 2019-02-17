@@ -6,9 +6,8 @@ module.exports = function gatsbyRemarkCodeTitles(
   { className: customClassName } = {}
 ) {
   visit(markdownAST, 'code', (node, index) => {
-    const [language, ...params] = (node.lang || '').split(':');
-    const query = params.join('&');
-    const options = qs.parse(query);
+    const [language, params] = (node.lang || '').split(':');
+    const options = qs.parse(params);
     const { title, ...rest } = options;
     if (!title || !language) {
       return;

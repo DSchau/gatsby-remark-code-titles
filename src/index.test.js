@@ -76,9 +76,9 @@ describe(`adding title`, () => {
     );
   });
 
-  test.skip(`it adds back existing query params`, () => {
+  test(`it adds back existing query params`, () => {
     const [original, updated] = setup(`
-      \`\`\`js:title=hello-world.js&copy=true
+      \`\`\`js:title=hello-world.js&clipboard=true
       alert('oh shit waddup')
       \`\`\`
     `);
@@ -87,6 +87,6 @@ describe(`adding title`, () => {
 
     const [_, codeNode] = updated.children;
 
-    expect(codeNode.lang).toBe(`js:copy=true`);
+    expect(codeNode.lang).toBe(`js:clipboard=true`);
   });
 });
