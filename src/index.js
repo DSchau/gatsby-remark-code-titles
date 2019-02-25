@@ -1,12 +1,25 @@
 import visit from 'unist-util-visit';
 import qs from 'query-string';
 
-module.exports = function gatsbyRemarkCodeTitles({ markdownAST }, { className: customClassName }) {
+module.exports = function gatsbyRemarkCodeTitles(
+  { markdownAST },
+  { className: customClassName } = {}
+) {
   visit(markdownAST, 'code', (node, index) => {
-    const [language, query] = (node.lang || '').split(':');
-    const { title } = qs.parse(query);
+    const [language, params] = (node.lang || '').split(':');
+    const options = qs.parse(params);
+    const { title, ...rest } = options;
     if (!title || !language) {
       return;
+    }
+
+    let newQuery = '';
+    if (Object.keys(rest).length) {
+      newQuery =
+        `:` +
+        Object.keys(rest)
+          .map(key => `${key}=${rest[key]}`)
+          .join('&');
     }
 
     const className = ['gatsby-code-title'].concat(customClassName || []);
@@ -15,7 +28,7 @@ module.exports = function gatsbyRemarkCodeTitles({ markdownAST }, { className: c
       type: 'html',
       value: `
 <div class="${className.join(' ').trim()}">${title}</div>
-      `.trim()
+      `.trim(),
     };
 
     /*
@@ -26,6 +39,8 @@ module.exports = function gatsbyRemarkCodeTitles({ markdownAST }, { className: c
     /*
      * Reset to just the language
      */
-    node.lang = language;
+    node.lang = language + newQuery;
   });
+
+  return markdownAST;
 };
