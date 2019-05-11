@@ -89,4 +89,19 @@ describe(`adding title`, () => {
 
     expect(codeNode.lang).toBe(`js:clipboard=true`);
   });
+
+  test(`it adds the title div in the right place for indented code blocks`, () => {
+    const [original, updated] = setup(`
+      1. this is a list with an indented code block
+          \`\`\`js:title=hello-world.js&clipboard=true
+          alert('oh shit waddup')
+          \`\`\`
+    `);
+    const [_, titleNode, codeNode] = updated.children[0].children[0].children;
+
+    expect(titleNode.value).toBe(
+      `<div class="gatsby-code-title">hello-world.js</div>`
+    );
+    expect(codeNode.lang).toBe(`js:clipboard=true`);
+  });
 });
