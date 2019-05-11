@@ -5,7 +5,7 @@ module.exports = function gatsbyRemarkCodeTitles(
   { markdownAST },
   { className: customClassName } = {}
 ) {
-  visit(markdownAST, 'code', (node, index) => {
+  visit(markdownAST, 'code', (node, index, parent) => {
     const [language, params] = (node.lang || '').split(':');
     const options = qs.parse(params);
     const { title, ...rest } = options;
@@ -34,7 +34,7 @@ module.exports = function gatsbyRemarkCodeTitles(
     /*
      * Splice a node back into the Markdown AST with custom title
      */
-    markdownAST.children.splice(index, 0, titleNode);
+    parent.children.splice(index, 0, titleNode);
 
     /*
      * Reset to just the language
