@@ -1,6 +1,6 @@
 # gatsby-remark-code-titles
 
-[![CircleCI](https://circleci.com/gh/DSchau/gatsby-remark-code-titles.svg?style=svg)](https://circleci.com/gh/DSchau/gatsby-remark-code-titles)
+[![NPM Version](https://img.shields.io/npm/v/gatsby-remark-code-titles.svg)](https://www.npmjs.com/package/gatsby-remark-code-titles) [![CircleCI](https://circleci.com/gh/DSchau/gatsby-remark-code-titles.svg?style=svg)](https://circleci.com/gh/DSchau/gatsby-remark-code-titles)
 
 Adds a code title to code snippets
 
