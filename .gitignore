@@ -1,6 +1,7 @@
 node_modules
 
 /*.js
+!/jest.config.js
 !/.babelrc.js
 !/.huskyrc.js
 !/lint-staged.config.js
