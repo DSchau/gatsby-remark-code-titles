@@ -91,17 +91,47 @@ describe(`adding title`, () => {
   });
 
   test(`it adds the title div in the right place for indented code blocks`, () => {
+    const title = `hello-world.js`;
+    const rest = `clipboard=true`;
     const [original, updated] = setup(`
       1. this is a list with an indented code block
-          \`\`\`js:title=hello-world.js&clipboard=true
+          \`\`\`js:title=${title}&${rest}
           alert('oh shit waddup')
           \`\`\`
     `);
     const [_, titleNode, codeNode] = updated.children[0].children[0].children;
 
-    expect(titleNode.value).toBe(
-      `<div class="gatsby-code-title">hello-world.js</div>`
-    );
-    expect(codeNode.lang).toBe(`js:clipboard=true`);
+    expect(titleNode.value).toContain(title);
+    expect(codeNode.lang).toBe(`js:${rest}`);
+  });
+
+  test(`it adds title with spaces`, () => {
+    const title = `Java 8 apparently because reasons`;
+    const [_, updated] = setup(`
+    \`\`\`java:title=${title}
+    class HelloWorld {
+      public static void main(String args[]) {
+        System.out.println("Oh shit waddup!")
+      }
+    }
+    \`\`\`
+    `);
+
+    const [titleNode] = updated.children;
+    expect(titleNode.value).toContain(title);
+  });
+
+  test(`it ignores non-title meta`, () => {
+    const meta = `something=true`;
+    const [_, updated] = setup(`
+      \`\`\`java? ${meta}
+        // this is java code
+      \`\`\`
+    `);
+
+    expect(updated.children).toHaveLength(1);
+
+    const [codeNode] = updated.children;
+    expect(codeNode.meta).toBe(meta);
   });
 });
