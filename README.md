@@ -74,3 +74,24 @@ This plugin will parse the Markdown AST, pluck the title, and then "clean" the c
 alert('how cool is this');
 ```
 ````
+
+#### Special Character Handling ####
+
+Internally the plugin takes the `.lang` field from the Remark AST and uses
+[query-string](https://github.com/sindresorhus/query-string#readme) to parse the
+params after the `:`. Only the `title` key is removed, any other parameters are
+left alone.
+
+If you have any special characters in the title, like spaces, then they need to
+be encoded manually in the same way as
+[.stringify](https://github.com/sindresorhus/query-string#stringifyobject-options)
+does.
+
+**Example with spaces**
+For "title with spaces" use `js:title=title%20with%20spaces.js`
+
+**Example with brackets**
+For "a (b)" use `js:title=a%20%28b%29`
+
+For "a [b]" use `js:title=a%20%5Bb%5D`
+
