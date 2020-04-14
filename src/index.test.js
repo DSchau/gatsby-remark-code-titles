@@ -104,4 +104,50 @@ describe(`adding title`, () => {
     );
     expect(codeNode.lang).toBe(`js:clipboard=true`);
   });
+
+  test(`it adds the title and preserves the options between curly brackets`, () => {
+    const [original, updated] = setup(`
+      1. this is a list with an indented code block
+          \`\`\`js{1,4-6}{numberLines:true}:title=hello-world.js&clipboard=true
+          alert('hello world')
+          \`\`\`
+    `);
+    const [_, titleNode, codeNode] = updated.children[0].children[0].children;
+
+    expect(titleNode.value).toBe(
+      `<div class="gatsby-code-title">hello-world.js</div>`
+    );
+    expect(codeNode.lang).toBe(`js{1,4-6}{numberLines:true}:clipboard=true`);
+  });
+
+  test(`it adds the title and handles a language string with spaces`, () => {
+    // In this case `node.meta` will be set with the string after the space
+    const [original, updated] = setup(`
+      1. this is a list with an indented code block
+          \`\`\`js{1,4-6}{numberLines: true}:title=hello-world.js&clipboard=true
+          alert('hello world')
+          \`\`\`
+    `);
+    const [_, titleNode, codeNode] = updated.children[0].children[0].children;
+
+    expect(titleNode.value).toBe(
+      `<div class="gatsby-code-title">hello-world.js</div>`
+    );
+    expect(codeNode.lang).toBe(`js{1,4-6}{numberLines: true}:clipboard=true`);
+  });
+
+  test(`it adds the title with spaces`, () => {
+    const [original, updated] = setup(`
+      1. this is a list with an indented code block
+          \`\`\`js:title=hello world (test).js&clipboard=true
+          alert('hello world')
+          \`\`\`
+    `);
+    const [_, titleNode, codeNode] = updated.children[0].children[0].children;
+
+    expect(titleNode.value).toBe(
+      `<div class="gatsby-code-title">hello world (test).js</div>`
+    );
+    expect(codeNode.lang).toBe(`js:clipboard=true`);
+  });
 });
