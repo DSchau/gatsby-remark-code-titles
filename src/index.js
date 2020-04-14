@@ -20,7 +20,8 @@ module.exports = function gatsbyRemarkCodeTitles(
   visit(markdownAST, 'code', (node, index, parent) => {
     // If we have a space in the language string (e.g. `js{numberLines: true}:title=index.js`)
     // the string after the space is going to be set as the `meta` field
-    let nodeLang = node.meta ? node.lang + node.meta : node.lang || '';
+    // Reconstruct the string with the space
+    let nodeLang = node.meta ? node.lang + ' ' + node.meta : node.lang || '';
 
     // Extract the options between brackets {} (e.g. {numberLines: true}{1,6-10})
     let bracketOptions = extractOptions(nodeLang);
